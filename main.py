@@ -2,8 +2,8 @@ from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from .src.database import Database
-from .src.models.login import Login
+from src.database import Database
+from src.models.login import Login
 
 app = FastAPI()
 database = Database()
