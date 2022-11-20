@@ -31,4 +31,9 @@ class Database:
             return data.all()
         raise Exception("Connection Error")
 
-    
+    def get_user_data(self, first_name:str):
+        select_query = f"SELECT secret_santa, recipient, wish_list from users WHERE first_name = '{first_name}';"
+        data = self.engine.execute(select_query)
+        if data:
+            return data.first()
+        raise Exception("Connection Error")

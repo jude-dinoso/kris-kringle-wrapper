@@ -11,7 +11,12 @@ database = Database()
 @app.post("/login/")
 async def login(first_name: str, password: str) -> bool:
     login_params = Login(first_name=first_name, password=password)
-    return database.login(login_params)
-    pass
+    if database.login(login_params):
+        return database.get_user_data(first_name)
+
+@app.get("/participants/")
+async def get_participants() -> list[str]:
+    return database.get_participants()
+
 
 
