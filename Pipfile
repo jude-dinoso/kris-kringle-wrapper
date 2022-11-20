@@ -9,6 +9,7 @@ databases = "*"
 fastapi = "*"
 pydantic = "*"
 pandas = "*"
+uvicorn = "*"
 
 [dev-packages]
 black = "*"
