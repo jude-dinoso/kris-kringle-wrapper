@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from .models.login import Login
 
 # SQLAlchemy specific code, as with any other app
-_DATABASE_URL = "postgresql://boldzzuhsgcpzh:b37a76311f137c92e1799a5eed360bb17d9762844d4b5c1054b41b88aaa0b192@ec2-3-219-135-162.compute-1.amazonaws.com:5432/da9hlho92lgimc"
+_DATABASE_URL = "postgresql://guiedycdcumjhn:ecdfa9e4e380c9f6e88ed8137e37ddf23dacd9a86fadd8b057256c2c58227fb2@ec2-52-0-222-226.compute-1.amazonaws.com:5432/d5jush1mk1fk0a"
 
 class Database:
 
@@ -19,9 +19,16 @@ class Database:
 
     def login(self, login_params: Login) -> bool:
         login_query = f"SELECT * FROM login WHERE first_name = '{login_params.first_name}' AND password = '{login_params.password}'"
-        data = self.engine.execute(login_query)
-        if data:
+        data = self.engine.execute(login_query).all()
+        if len(data) == 1:
             return True
         return False
+
+    def get_participants(self):
+        select_query = "SELECT first_name from users;"
+        data = self.engine.execute(select_query)
+        if data:
+            return data.all()
+        raise Exception("Connection Error")
 
     

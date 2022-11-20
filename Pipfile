@@ -8,10 +8,10 @@ typing = "*"
 databases = "*"
 fastapi = "*"
 pydantic = "*"
+pandas = "*"
 
 [dev-packages]
 black = "*"
 
 [requires]
-python_version = "3.10"
 python_full_version = "3.10.8"
