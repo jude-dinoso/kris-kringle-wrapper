@@ -5,9 +5,10 @@ from sqlalchemy.orm import sessionmaker
 from fastapi import FastAPI
 from pydantic import BaseModel
 from .models.login import Login
+import os
 
 # SQLAlchemy specific code, as with any other app
-_DATABASE_URL = "postgresql://guiedycdcumjhn:ecdfa9e4e380c9f6e88ed8137e37ddf23dacd9a86fadd8b057256c2c58227fb2@ec2-52-0-222-226.compute-1.amazonaws.com:5432/d5jush1mk1fk0a"
+_DATABASE_URL = os.environ['DATABASE_URL']
 
 class Database:
 

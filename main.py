@@ -10,7 +10,7 @@ app = FastAPI()
 origins = [
     "https://sjreunion.vercel.app/kris-kringle",
     "https://sjreunion.vercel.app/dashboard/default",
-    "https://sjreunion.vercel.app/"
+    "https://sjreunion.vercel.app"
 ]
 
 app.add_middleware(
