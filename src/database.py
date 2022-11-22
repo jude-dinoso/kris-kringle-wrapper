@@ -8,7 +8,7 @@ from .models.login import Login
 import os
 
 # SQLAlchemy specific code, as with any other app
-_DATABASE_URL = os.environ['DATABASE_URL']
+_DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres', 'postgresql')
 
 class Database:
 
