@@ -13,7 +13,7 @@ _DATABASE_URL = os.environ['DATABASE_URL']
 class Database:
 
     def __init__(self) -> None:
-        self.engine = create_engine(_DATABASE_URL)
+        self.engine = create_engine(_DATABASE_URL, connect_args={'sslmode': "require"})
 
     def create_session(self) -> None:
         self.session = sessionmaker(bind = self.engine)
