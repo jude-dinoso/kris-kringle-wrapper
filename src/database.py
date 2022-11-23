@@ -2,13 +2,14 @@ from typing import List
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from .models.login import Login
 import os
 
 # SQLAlchemy specific code, as with any other app
 _DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres', 'postgresql')
+_DATABASE_URL = os.environ['DATABASE_URL']
 
 class Database:
 
@@ -30,11 +31,17 @@ class Database:
         data = self.engine.execute(select_query)
         if data:
             return data.all()
-        raise Exception("Connection Error")
+        raise HTTPException(status_code=500, detail="Connection Error")
 
     def get_user_data(self, first_name:str):
-        select_query = f"SELECT secret_santa, recipient, wish_list from users WHERE first_name = '{first_name}';"
+        select_query = f"SELECT secret_santa, recipient, wish_list, description from users WHERE first_name = '{first_name}';"
         data = self.engine.execute(select_query)
         if data:
             return data.first()
-        raise Exception("Connection Error")
+        raise HTTPException(status_code=500, detail="Connection Error")
+
+    def execute_sql(self, query: str) -> bool:
+        data = self.engine.execute(query)
+        if data:
+            return True
+        raise HTTPException(status_code=500, detail="Connection Error")
