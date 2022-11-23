@@ -22,24 +22,25 @@ app.add_middleware(
 )
 database = Database()
 
-@app.post("/login")
+@app.post("/login/")
 async def login(first_name: str, password: str):
     login_params = Login(first_name=first_name, password=password)
     if database.login(login_params):
         return database.get_user_data(first_name)
     raise HTTPException(status_code=404, detail="Invalid User/Password")
 
-@app.get("/participants")
+@app.get("/participants/")
 async def get_participants() -> list[str]:
     return database.get_participants()
-@app.patch("/wishlist", response_model=str)
+
+@app.patch("/wishlist/", response_model=str)
 async def update_wishlist(first_name: str, wish_list: str) -> str:
     update_query = f"UPDATE users SET wish_list = '{wish_list}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
         return wish_list
     raise HTTPException(status_code=500, detail="Connection Error")
 
-@app.patch("/description", response_model=str)
+@app.patch("/description/", response_model=str)
 async def update_description(first_name: str, description: str) -> str:
     update_query = f"UPDATE users SET description = '{description}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
