@@ -42,7 +42,7 @@ async def update_wishlist(
 ) -> str:
     update_query = f"UPDATE users SET wish_list = '{wish_list}', wish_list_2 = '{wish_list_2}', wishlist_3 = '{wish_list_3}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
-        return wish_list
+        return database.get_user_data(first_name)
     raise HTTPException(status_code=500, detail="Connection Error")
 
 
@@ -50,5 +50,5 @@ async def update_wishlist(
 async def update_description(first_name: str, description: str) -> str:
     update_query = f"UPDATE users SET description = '{description}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
-        return description
+        return database.get_user_data(first_name)
     raise HTTPException(status_code=500, detail="Connection Error")
