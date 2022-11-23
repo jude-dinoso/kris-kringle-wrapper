@@ -40,7 +40,7 @@ async def get_participants() -> list[str]:
 async def update_wishlist(
     first_name: str, wish_list: str, wish_list_2: str, wish_list_3: str
 ) -> str:
-    update_query = f"UPDATE users SET wish_list = '{wish_list}', wish_list_2 = '{wish_list_2}', wishlist_3 = '{wish_list_3}' WHERE first_name = '{first_name}'"
+    update_query = f"UPDATE users SET wish_list = '{wish_list}', wish_list_2 = '{wish_list_2}', wish_list_3 = '{wish_list_3}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
         return database.get_user_data(first_name)
     raise HTTPException(status_code=500, detail="Connection Error")
