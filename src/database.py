@@ -9,7 +9,6 @@ import os
 
 # SQLAlchemy specific code, as with any other app
 _DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres', 'postgresql')
-_DATABASE_URL = os.environ['DATABASE_URL']
 
 class Database:
 
