@@ -8,9 +8,8 @@ from .models.login import Login
 app = FastAPI()
 database = Database()
 
+
 @app.post("/login/")
 async def login(login_params: Login) -> bool:
-    return database.login(login_params) 
+    return database.login(login_params)
     pass
-
-

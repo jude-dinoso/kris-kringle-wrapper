@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class User(BaseModel):
     first_name: str
     group_id: int

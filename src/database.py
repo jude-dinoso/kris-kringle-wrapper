@@ -8,15 +8,15 @@ from .models.login import Login
 import os
 
 # SQLAlchemy specific code, as with any other app
-_DATABASE_URL = os.environ['DATABASE_URL'].replace('postgres', 'postgresql')
+_DATABASE_URL = os.environ["DATABASE_URL"].replace("postgres", "postgresql")
+
 
 class Database:
-
     def __init__(self) -> None:
-        self.engine = create_engine(_DATABASE_URL, connect_args={'sslmode': "require"})
+        self.engine = create_engine(_DATABASE_URL, connect_args={"sslmode": "require"})
 
     def create_session(self) -> None:
-        self.session = sessionmaker(bind = self.engine)
+        self.session = sessionmaker(bind=self.engine)
 
     def login(self, login_params: Login) -> bool:
         login_query = f"SELECT * FROM login WHERE first_name = '{login_params.first_name}' AND password = '{login_params.password}'"
@@ -32,8 +32,8 @@ class Database:
             return data.all()
         raise HTTPException(status_code=500, detail="Connection Error")
 
-    def get_user_data(self, first_name:str):
-        select_query = f"SELECT secret_santa, recipient, wish_list, description from users WHERE first_name = '{first_name}';"
+    def get_user_data(self, first_name: str):
+        select_query = f"SELECT secret_santa, recipient, wish_list, wishlist_2, wishlist_3, description from users WHERE first_name = '{first_name}';"
         data = self.engine.execute(select_query)
         if data:
             return data.first()

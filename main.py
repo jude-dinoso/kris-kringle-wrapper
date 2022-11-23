@@ -10,7 +10,7 @@ app = FastAPI()
 origins = [
     "https://sjreunion.vercel.app/kris-kringle",
     "https://sjreunion.vercel.app/dashboard/default",
-    "https://sjreunion.vercel.app"
+    "https://sjreunion.vercel.app",
 ]
 
 app.add_middleware(
@@ -22,6 +22,7 @@ app.add_middleware(
 )
 database = Database()
 
+
 @app.post("/login/")
 async def login(first_name: str, password: str):
     login_params = Login(first_name=first_name, password=password)
@@ -29,16 +30,21 @@ async def login(first_name: str, password: str):
         return database.get_user_data(first_name)
     raise HTTPException(status_code=404, detail="Invalid User/Password")
 
+
 @app.get("/participants/")
 async def get_participants() -> list[str]:
     return database.get_participants()
 
+
 @app.patch("/wishlist/", response_model=str)
-async def update_wishlist(first_name: str, wish_list: str) -> str:
-    update_query = f"UPDATE users SET wish_list = '{wish_list}' WHERE first_name = '{first_name}'"
+async def update_wishlist(
+    first_name: str, wish_list: str, wish_list_2: str, wish_list_3: str
+) -> str:
+    update_query = f"UPDATE users SET wish_list = '{wish_list}', wish_list_2 = '{wish_list_2}', wishlist_3 = '{wish_list_3}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
         return wish_list
     raise HTTPException(status_code=500, detail="Connection Error")
+
 
 @app.patch("/description/", response_model=str)
 async def update_description(first_name: str, description: str) -> str:
@@ -46,4 +52,3 @@ async def update_description(first_name: str, description: str) -> str:
     if database.execute_sql(update_query):
         return description
     raise HTTPException(status_code=500, detail="Connection Error")
-
