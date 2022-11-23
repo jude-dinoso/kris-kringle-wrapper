@@ -36,7 +36,7 @@ async def get_participants() -> list[str]:
     return database.get_participants()
 
 
-@app.patch("/wishlist/", response_model=str)
+@app.post("/wishlist/", response_model=str)
 async def update_wishlist(
     first_name: str, wish_list: str, wish_list_2: str, wish_list_3: str
 ) -> str:
@@ -46,7 +46,7 @@ async def update_wishlist(
     raise HTTPException(status_code=500, detail="Connection Error")
 
 
-@app.patch("/description/", response_model=str)
+@app.post("/description/", response_model=str)
 async def update_description(first_name: str, description: str) -> str:
     update_query = f"UPDATE users SET description = '{description}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
