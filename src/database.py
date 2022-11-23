@@ -33,7 +33,10 @@ class Database:
         raise HTTPException(status_code=500, detail="Connection Error")
 
     def get_user_data(self, first_name: str):
-        select_query = f"SELECT secret_santa, recipient, wish_list, wish_list_2, wish_list_3, description from users WHERE first_name = '{first_name}';"
+        select_query = "SELECT u1.secret_santa, u1.recipient, u1.wish_list, u1.wish_list_2, u1.wish_list_3," \
+                       " u2.wish_list, u2.wish_list_2, u2.wish_list_3, u1.description from users u1 JOIN users u2" \
+                       " on u1.recipient = u2.first_name" \
+                       f" WHERE u1.first_name = '{first_name}';"
         data = self.engine.execute(select_query)
         if data:
             return data.first()
