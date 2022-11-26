@@ -33,7 +33,7 @@ class Database:
         raise HTTPException(status_code=500, detail="Connection Error")
 
     def get_user_data(self, first_name: str):
-        select_query = "SELECT u1.secret_santa, u1.recipient, u1.wish_list, u1.wish_list_2, u1.wish_list_3," \
+        select_query = "SELECT u1.recipient, u1.wish_list, u1.wish_list_2, u1.wish_list_3," \
                        " u2.wish_list as r_wl, u2.wish_list_2 as r_wl2, u2.wish_list_3 as r_wl3, u1.description from users u1 JOIN users u2" \
                        " on u1.recipient = u2.first_name" \
                        f" WHERE u1.first_name = '{first_name}';"
