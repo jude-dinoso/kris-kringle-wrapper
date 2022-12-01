@@ -35,6 +35,10 @@ async def login(first_name: str, password: str):
 async def get_participants() -> list[str]:
     return database.get_participants()
 
+@app.get("/description_all/")
+async def get_description() -> list[str]:
+    return database.get_name_and_description()
+
 
 @app.post("/wishlist/")
 async def update_wishlist(
@@ -49,6 +53,14 @@ async def update_wishlist(
 @app.post("/description/")
 async def update_description(first_name: str, description: str) -> str:
     update_query = f"UPDATE users SET description = '{description}' WHERE first_name = '{first_name}'"
+    if database.execute_sql(update_query):
+        return database.get_user_data(first_name)
+    raise HTTPException(status_code=500, detail="Connection Error")
+
+
+@app.post("/guess/")
+async def update_guess(first_name: str, guess: str) -> str:
+    update_query = f"UPDATE users SET guess = '{guess}' WHERE first_name = '{first_name}'"
     if database.execute_sql(update_query):
         return database.get_user_data(first_name)
     raise HTTPException(status_code=500, detail="Connection Error")
