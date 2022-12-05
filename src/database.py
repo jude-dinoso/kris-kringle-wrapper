@@ -44,7 +44,7 @@ class Database:
         raise HTTPException(status_code=500, detail="Connection Error")
 
     def get_name_and_description(self):
-        select_query = "SELECT first_name, description from users;"
+        select_query = "SELECT first_name, description from users order by first_name;"
         data = self.engine.execute(select_query)
         if data:
             return data.all()
