@@ -11,7 +11,7 @@ origins = [
     "https://sjreunion.vercel.app/kris-kringle",
     "https://sjreunion.vercel.app/dashboard/default",
     "https://sjreunion.vercel.app",
-    "https://kris-kringle-9s1jkog07-jude-dinoso.vercel.app/",
+    "https://kris-kringle-9s1jkog07-jude-dinoso.vercel.app",
 ]
 
 app.add_middleware(
