@@ -75,7 +75,7 @@ async def update_guess(first_name: str, guess: str) -> str:
 async def login(first_name: str, password: str):
     login_params = Login(first_name=first_name, password=password)
     if database.login(login_params, table="santos_login"):
-        return database.get_user_data(first_name)
+        return database.get_user_data(first_name, table="santos_users")
     raise HTTPException(status_code=404, detail="Invalid User/Password")
 
 
