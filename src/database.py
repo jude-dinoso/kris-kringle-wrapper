@@ -50,6 +50,13 @@ class Database:
             return data.all()
         raise HTTPException(status_code=500, detail="Connection Error")
 
+    def get_name_and_guess(self, table: str = "users"):
+        select_query = f"SELECT first_name, guess from {table} order by first_name;"
+        data = self.engine.execute(select_query)
+        if data:
+            return data.all()
+        raise HTTPException(status_code=500, detail="Connection Error")
+
     def execute_sql(self, query: str) -> bool:
         data = self.engine.execute(query)
         if data:
