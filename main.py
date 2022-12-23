@@ -43,6 +43,9 @@ async def get_participants() -> list[str]:
 async def get_description() -> list[str]:
     return database.get_name_and_description()
 
+@app.get("/guess_all/")
+async def get_guess() -> list[str]:
+    return database.get_name_and_description()
 
 @app.post("/wishlist/")
 async def update_wishlist(
