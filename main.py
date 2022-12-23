@@ -45,7 +45,7 @@ async def get_description() -> list[str]:
 
 @app.get("/guess_all/")
 async def get_guess() -> list[str]:
-    return database.get_name_and_description()
+    return database.get_name_and_guess()
 
 @app.post("/wishlist/")
 async def update_wishlist(
